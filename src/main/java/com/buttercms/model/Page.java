@@ -8,24 +8,31 @@ import java.util.StringJoiner;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Page<T> {
     private String slug;
+    private String pageType;
     private T fields;
 
     public String getSlug() {
         return slug;
     }
 
-    public Page setSlug(String slug) {
+    public void setSlug(String slug) {
         this.slug = slug;
-        return this;
+    }
+
+    public String getPageType() {
+        return pageType;
+    }
+
+    public void setPageType(String pageType) {
+        this.pageType = pageType;
     }
 
     public T getFields() {
         return fields;
     }
 
-    public Page setFields(T fields) {
+    public void setFields(T fields) {
         this.fields = fields;
-        return this;
     }
 
     @Override
