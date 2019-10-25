@@ -1,6 +1,7 @@
 package com.buttercms;
 
 import com.buttercms.model.Author;
+import com.buttercms.model.AuthorResponse;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -50,7 +51,7 @@ public class ButterCMSClientTest {
         expectedAuthor.setProfileImage("");
 
         ButterCMSClient client = new ButterCMSClient("token", closeableHttpClient);
-        Author actualAuthor = client.getAuthor("fake-name");
+        AuthorResponse actualAuthor = client.getAuthor("fake-name", null);
 
         Assertions.assertEquals(expectedAuthor, actualAuthor);
     }

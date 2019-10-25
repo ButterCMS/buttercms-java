@@ -10,13 +10,6 @@ import java.util.StringJoiner;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Post {
-    public enum Status {
-        @JsonProperty("draft")
-        DRAFT,
-
-        @JsonProperty("published")
-        PUBLISHED
-    }
     private Author author;
     private String body;
     private List<Category> categories;
@@ -172,5 +165,13 @@ public class Post {
                 .add("title='" + title + "'")
                 .add("url='" + url + "'")
                 .toString();
+    }
+
+    public enum Status {
+        @JsonProperty("draft")
+        DRAFT,
+
+        @JsonProperty("published")
+        PUBLISHED
     }
 }

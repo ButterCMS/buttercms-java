@@ -7,15 +7,15 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PagesResponse {
-    private List<Page<?>> data;
+public class PagesResponse<T> {
+    private List<Page<T>> data;
     private PaginationMeta meta;
 
-    public List<Page<?>> getData() {
+    public List<Page<T>> getData() {
         return data;
     }
 
-    public PagesResponse setData(List<Page<?>> data) {
+    public PagesResponse setData(List<Page<T>> data) {
         this.data = data;
         return this;
     }

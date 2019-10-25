@@ -2,7 +2,6 @@ package com.buttercms.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
