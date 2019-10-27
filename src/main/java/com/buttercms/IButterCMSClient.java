@@ -1,7 +1,10 @@
 package com.buttercms;
 
 import com.buttercms.model.*;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.Map;
 
@@ -22,7 +25,7 @@ public interface IButterCMSClient {
     // TODO: JavaDoc
     CategoriesResponse getCategories(Map<String, String> queryParameters) throws IOException;
 
-    <T> Page<T> getPage(String pageTypeSlug, String pageSlug, Map<String, String> queryParameters, Class<T> classType) throws IOException;
+    <T> PageResponse<T> getPage(String pageTypeSlug, String pageSlug, Map<String, String> queryParameters, Class<T> classType) throws IOException;
 
     // TODO: JavaDoc
     <T> PagesResponse<T> getPages(String pageTypeSlug, Map<String, String> queryParameters, Class<T> classType) throws IOException;
@@ -39,9 +42,11 @@ public interface IButterCMSClient {
     // TODO: JavaDoc
     TagsResponse getTags(Map<String, String> queryParameters) throws IOException;
 
-    void getAtom();
+    Document getSiteMap() throws IOException, ParserConfigurationException, SAXException;
 
-    void getRSS();
+    public <T> CollectionResponse<T> getCollection(final String collectionSlug, final Map<String, String> queryParameters, Class<T> classType) throws IOException;
 
-    void getSitemap();
+    Document getRSS() throws IOException, ParserConfigurationException, SAXException;
+
+    Document getAtom() throws IOException, ParserConfigurationException, SAXException;
 }

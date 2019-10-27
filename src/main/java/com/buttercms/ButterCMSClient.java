@@ -10,12 +10,21 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClients;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.Arrays;
 import java.util.Map;
+
 
 public class ButterCMSClient implements IButterCMSClient {
     private final ObjectMapper mapper;
@@ -82,25 +91,35 @@ public class ButterCMSClient implements IButterCMSClient {
     }
 
     @Override
-    public <T> Page<T> getPage(final String pageTypeSlug, final String pageSlug, final Map<String, String> queryParameters, Class<T> classType) throws IOException {
+    public <T> PageResponse<T> getPage(final String pageTypeSlug, final String pageSlug, final Map<String, String> queryParameters, Class<T> classType) throws IOException {
         final String path = String.format(ButterCMSAPIConfig.PAGES + "%s/%s/", pageTypeSlug, pageSlug);
-        HttpGet httpGet = new HttpGet(buildURL(path, queryParameters));
-        try {
-            InputStream json = client.execute(httpGet).getEntity().getContent();
-            JsonNode root = this.mapper.readTree(json);
-            return mapper.convertValue(root.get("data"), mapper.getTypeFactory().constructParametricType(Page.class, classType));
-        } finally {
-            httpGet.releaseConnection();
-        }
+        return readGenericRequest(path, queryParameters, PageResponse.class, classType);
+    }
+
+    @Override
+    public <T> PagesResponse<T> getPages(final String pageTypeSlug, final Map<String, String> queryParameters, Class<T> classType) throws IOException {
+        return readGenericRequest(ButterCMSAPIConfig.PAGES + pageTypeSlug, queryParameters, PagesResponse.class, classType);
     }
 
 
     @Override
-    public <T> PagesResponse<T> getPages(final String pageTypeSlug, final Map<String, String> queryParameters, Class<T> classType) throws IOException {
-        HttpGet httpGet = new HttpGet(buildURL(ButterCMSAPIConfig.PAGES + pageTypeSlug, queryParameters));
+    public <T> CollectionResponse<T> getCollection(final String collectionSlug, final Map<String, String> queryParameters, Class<T> classType) throws IOException {
+        final String path = String.format(ButterCMSAPIConfig.CONTENT + "%s/", collectionSlug);
+        HttpGet httpGet = new HttpGet(buildURL(path, queryParameters));
         try {
-            return mapper.readValue(client.execute(httpGet).getEntity().getContent(),
-                    mapper.getTypeFactory().constructParametricType(PagesResponse.class, classType));
+            // manual parsing due to variable json field name
+            InputStream json = client.execute(httpGet).getEntity().getContent();
+            JsonNode root = this.mapper.readTree(json);
+            CollectionResponse<T> response = new CollectionResponse<>();
+            response.setMeta(mapper.convertValue(root.get("meta"), PaginationMeta.class));
+            Collection<T> collection = new Collection<>();
+            for (JsonNode coll : root.get("data")) {
+                collection.setItems(Arrays.asList(mapper.convertValue(coll,
+                        mapper.getTypeFactory().constructArrayType(classType))));
+                break;
+            }
+            response.setData(collection);
+            return response;
         } finally {
             httpGet.releaseConnection();
         }
@@ -135,27 +154,53 @@ public class ButterCMSClient implements IButterCMSClient {
         return readGetRequest(ButterCMSAPIConfig.TAGS, queryParameters, TagsResponse.class);
     }
 
-    // FEEDS AND SITEMAP (all XML)
-
     @Override
-    public void getAtom() {
-        throw new UnsupportedOperationException("Not implemented yet");
+    public Document getSiteMap() throws IOException, ParserConfigurationException, SAXException {
+        return readXML(ButterCMSAPIConfig.SITE_MAP_ENDPOINT);
     }
 
     @Override
-    public void getRSS() {
-        throw new UnsupportedOperationException("Not implemented yet");
+    public Document getRSS() throws IOException, ParserConfigurationException, SAXException {
+        return readXML(ButterCMSAPIConfig.RSS_FEED_ENDPOINT);
     }
 
+
     @Override
-    public void getSitemap() {
-        throw new UnsupportedOperationException("Not implemented yet");
+    public Document getAtom() throws IOException, ParserConfigurationException, SAXException {
+        return readXML(ButterCMSAPIConfig.ATOM_ENDPOINT);
     }
+
 
     private <T> T readGetRequest(String url, Map<String, String> queryParameters, Class<T> classType) throws IOException {
         HttpGet httpGet = new HttpGet(buildURL(url, queryParameters));
         try {
             return mapper.readValue(client.execute(httpGet).getEntity().getContent(), classType);
+        } finally {
+            httpGet.releaseConnection();
+        }
+    }
+
+    private <T, G> T readGenericRequest(String url, Map<String, String> queryParameters, Class<T> classType, Class<G> genericClassType) throws IOException {
+        HttpGet httpGet = new HttpGet(buildURL(url, queryParameters));
+        try {
+            return mapper.readValue(client.execute(httpGet).getEntity().getContent(),
+                    mapper.getTypeFactory().constructParametricType(classType, genericClassType));
+        } finally {
+            httpGet.releaseConnection();
+        }
+    }
+
+    private Document readXML(String url) throws IOException, ParserConfigurationException, SAXException {
+        HttpGet httpGet = new HttpGet(buildURL(url, null));
+        try {
+            InputStream json = client.execute(httpGet).getEntity().getContent();
+            JsonNode root = this.mapper.readTree(json);
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new ByteArrayInputStream(
+                    root.get("data").asText().getBytes(Charset.forName("UTF-8")))
+            );
+            return doc;
         } finally {
             httpGet.releaseConnection();
         }
