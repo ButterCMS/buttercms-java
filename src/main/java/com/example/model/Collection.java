@@ -23,4 +23,12 @@ public class Collection {
     public void setSecond_filed(String second_filed) {
         this.second_filed = second_filed;
     }
+
+    @Override
+    public String toString() {
+        return "Collection{" +
+                "first_field='" + first_field + '\'' +
+                ", second_filed='" + second_filed + '\'' +
+                '}';
+    }
 }

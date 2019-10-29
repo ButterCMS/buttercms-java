@@ -113,11 +113,8 @@ public class ButterCMSClient implements IButterCMSClient {
             CollectionResponse<T> response = new CollectionResponse<>();
             response.setMeta(mapper.convertValue(root.get("meta"), PaginationMeta.class));
             Collection<T> collection = new Collection<>();
-            for (JsonNode coll : root.get("data")) {
-                collection.setItems(Arrays.asList(mapper.convertValue(coll,
-                        mapper.getTypeFactory().constructArrayType(classType))));
-                break;
-            }
+            collection.setItems(Arrays.asList(mapper.convertValue(root.get("data").get(collectionSlug),
+                    mapper.getTypeFactory().constructArrayType(classType))));
             response.setData(collection);
             return response;
         } finally {

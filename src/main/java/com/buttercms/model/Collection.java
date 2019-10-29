@@ -21,4 +21,25 @@ public class Collection<T> {
         this.items = items;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Collection<?> that = (Collection<?>) o;
+
+        return items != null ? items.equals(that.items) : that.items == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return items != null ? items.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Collection{" +
+                "items=" + items +
+                '}';
+    }
 }

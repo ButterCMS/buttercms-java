@@ -30,7 +30,7 @@ public class Demo {
     }
 
     public static void main(String[] args) {
-        ButterCMSClient client = new ButterCMSClient("c9907b60c054e79e3901abf039b065f5e7c97adb");
+        ButterCMSClient client = new ButterCMSClient("auth_token");
         Demo demo = new Demo(client);
         try {
             demo.printCollection();
@@ -61,7 +61,7 @@ public class Demo {
 
     private void printCollection() throws Exception{
        CollectionResponse response =  client.getCollection("test",null, Collection.class);
-        System.out.println(response);
+        System.out.println(response.toString());
     }
     private void printAuthor() throws IOException {
         this.params.clear();
