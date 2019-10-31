@@ -3,10 +3,9 @@ package com.example;
 import com.buttercms.ButterCMSClient;
 import com.buttercms.IButterCMSClient;
 import com.buttercms.model.CollectionResponse;
-import com.buttercms.model.Page;
 import com.buttercms.model.PageResponse;
 import com.buttercms.model.Post;
-import com.example.model.Collection;
+import com.example.model.Car;
 import com.example.model.RecipePage;
 
 import javax.xml.transform.Transformer;
@@ -30,7 +29,7 @@ public class Demo {
     }
 
     public static void main(String[] args) {
-        ButterCMSClient client = new ButterCMSClient("auth_token");
+        ButterCMSClient client = new ButterCMSClient("c9907b60c054e79e3901abf039b065f5e7c97adb");
         Demo demo = new Demo(client);
         try {
             demo.printCollection();
@@ -59,10 +58,14 @@ public class Demo {
         System.out.println("# -- " + message + " -- #");
     }
 
-    private void printCollection() throws Exception{
-       CollectionResponse response =  client.getCollection("test",null, Collection.class);
+    private void printCollection() throws Exception {
+        CollectionResponse response = client.getCollection("cars", new HashMap<String, String>() {{
+            put("fields.weight", "400");
+            put("page_size", "1");
+        }}, Car.class);
         System.out.println(response.toString());
     }
+
     private void printAuthor() throws IOException {
         this.params.clear();
         this.params.put("include", "recent_posts");
@@ -131,13 +134,13 @@ public class Demo {
         System.out.println(client.getTags(null).getData());
     }
 
-    private void printSiteMap() throws Exception{
+    private void printSiteMap() throws Exception {
         DOMSource domSource = new DOMSource(client.getSiteMap());
         StringWriter writer = new StringWriter();
         StreamResult result = new StreamResult(writer);
         TransformerFactory tf = TransformerFactory.newInstance();
         Transformer transformer = tf.newTransformer();
         transformer.transform(domSource, result);
-        System.out.println( writer.toString());
+        System.out.println(writer.toString());
     }
 }
