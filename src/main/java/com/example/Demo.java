@@ -33,12 +33,12 @@ public class Demo {
         Demo demo = new Demo(client);
         try {
             demo.printCollection();
-/*            demo.printSiteMap();
+            demo.printSiteMap();
             demo.printAuthor();
             demo.printCategory();
             demo.printPage();
             demo.printPost();
-            demo.printTag();*/
+            demo.printTag();
         } catch (FileNotFoundException e) {
             System.out.println("!!! 404 !!!");
             e.printStackTrace();
