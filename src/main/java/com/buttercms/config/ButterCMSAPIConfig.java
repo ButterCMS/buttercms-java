@@ -7,5 +7,9 @@ public class ButterCMSAPIConfig {
     public static String PAGES = "/pages/";
     public static String POSTS = "/posts/";
     public static String TAGS = "/tags/";
+    public static String CONTENT = "/content/";
+    public static String RSS_FEED_ENDPOINT = "/feeds/rss/";
+    public static String ATOM_ENDPOINT = "/feeds/atom/";
+    public static String SITE_MAP_ENDPOINT = "/feeds/sitemap/";
 
 }

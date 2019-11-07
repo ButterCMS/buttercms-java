@@ -2,12 +2,19 @@ package com.example;
 
 import com.buttercms.ButterCMSClient;
 import com.buttercms.IButterCMSClient;
-import com.buttercms.model.Page;
+import com.buttercms.model.CollectionResponse;
+import com.buttercms.model.PageResponse;
 import com.buttercms.model.Post;
+import com.example.model.Car;
 import com.example.model.RecipePage;
 
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,16 +32,20 @@ public class Demo {
         ButterCMSClient client = new ButterCMSClient("your_api_token");
         Demo demo = new Demo(client);
         try {
+            demo.printCollection();
+/*            demo.printSiteMap();
             demo.printAuthor();
             demo.printCategory();
             demo.printPage();
             demo.printPost();
-            demo.printTag();
+            demo.printTag();*/
         } catch (FileNotFoundException e) {
             System.out.println("!!! 404 !!!");
             e.printStackTrace();
         } catch (IOException e) {
             System.out.println("!!! non-404 http error !!!");
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -45,6 +56,14 @@ public class Demo {
 
     private void h2(final String message) {
         System.out.println("# -- " + message + " -- #");
+    }
+
+    private void printCollection() throws Exception {
+        CollectionResponse response = client.getCollection("cars", new HashMap<String, String>() {{
+            put("fields.weight", "400");
+            put("page_size", "1");
+        }}, Car.class);
+        System.out.println(response.toString());
     }
 
     private void printAuthor() throws IOException {
@@ -75,9 +94,9 @@ public class Demo {
         this.params.put("locale", "en");
 
         this.h2("getPage()");
-        Page<RecipePage> recipe = client.getPage("recipe", "test-page-11", this.params, RecipePage.class);
+        PageResponse<RecipePage> recipe = client.getPage("recipe", "test-page-11", this.params, RecipePage.class);
         System.out.println(recipe);
-        RecipePage recipeFields = recipe.getFields();
+        RecipePage recipeFields = recipe.getData().getFields();
         System.out.println("test content: " + recipeFields.getTestContent());
 
         this.h2("getPages()");
@@ -113,5 +132,15 @@ public class Demo {
         System.out.println(client.getTag("example-tag", this.params).getData());
         this.h2("getTags()");
         System.out.println(client.getTags(null).getData());
+    }
+
+    private void printSiteMap() throws Exception {
+        DOMSource domSource = new DOMSource(client.getSiteMap());
+        StringWriter writer = new StringWriter();
+        StreamResult result = new StreamResult(writer);
+        TransformerFactory tf = TransformerFactory.newInstance();
+        Transformer transformer = tf.newTransformer();
+        transformer.transform(domSource, result);
+        System.out.println(writer.toString());
     }
 }

@@ -6,14 +6,14 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PageResponse {
-    private Page<?> data;
+public class PageResponse<T> {
+    private Page<T> data;
 
-    public Page getData() {
+    public Page<T> getData() {
         return data;
     }
 
-    public PageResponse setData(Page<?> data) {
+    public PageResponse setData(Page<T> data) {
         this.data = data;
         return this;
     }
