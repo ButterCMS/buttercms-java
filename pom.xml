@@ -5,7 +5,7 @@
 
     <groupId>com.buttercms</groupId>
     <artifactId>buttercmsclient</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
 
     <name>buttercmsclient</name>
     <url>https://github.com/ButterCMS/buttercms-java</url>
@@ -14,7 +14,7 @@
         <url>https://github.com/ButterCMS/buttercms-java</url>
         <connection>scm:git:git://github.com/ButterCMS/buttercms-java.git</connection>
         <developerConnection>scm:git:git@github.com:ButterCMS/buttercms-java.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>buttercmsclient-1.1</tag>
     </scm>
 
     <developers>
