@@ -329,7 +329,7 @@ Retrieving a single page returns a [PageResponse&lt;T&gt;](#pageresponse-class) 
 
 ##### Page Type Definition in the Butter Admin
 
-![alt text](/Examples/RecipePageType.png "Page Type Definition")
+![alt text](./Examples/RecipePageType.png "Page Type Definition")
 
 ## Class Definitions
 
