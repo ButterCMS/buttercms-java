@@ -23,6 +23,7 @@ public class Post {
     private List<Tag> tags;
     private String title;
     private String url;
+    private String featuredImage;
 
     public Author getAuthor() {
         return author;
@@ -128,6 +129,14 @@ public class Post {
         this.url = url;
     }
 
+    public String getFeaturedImage() {
+        return featuredImage;
+    }
+
+    public void setFeaturedImage(String featuredImage) {
+        this.featuredImage = featuredImage;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -145,12 +154,13 @@ public class Post {
                 Objects.equals(summary, post.summary) &&
                 Objects.equals(tags, post.tags) &&
                 Objects.equals(title, post.title) &&
-                Objects.equals(url, post.url);
+                Objects.equals(url, post.url)&&
+                Objects.equals(featuredImage, post.featuredImage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(author, body, categories, created, metaDescription, published, seoTitle, slug, status, summary, tags, title, url);
+        return Objects.hash(author, body, categories, created, metaDescription, published, seoTitle, slug, status, summary, tags, title, url,featuredImage);
     }
 
     @Override
@@ -164,6 +174,7 @@ public class Post {
                 .add("summary='" + summary + "'")
                 .add("title='" + title + "'")
                 .add("url='" + url + "'")
+                .add("featuredImage='" + featuredImage + "'")
                 .toString();
     }
 
