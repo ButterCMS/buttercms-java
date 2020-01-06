@@ -9,6 +9,7 @@
 
     <name>buttercmsclient</name>
     <url>https://github.com/ButterCMS/buttercms-java</url>
+    <description>Java SDK for ButterCMS (https://buttercms.com)</description>
 
     <scm>
         <url>https://github.com/ButterCMS/buttercms-java</url>
@@ -34,8 +35,8 @@
 
     <licenses>
         <license>
-            <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <name>MIT License</name>
+            <url>https://github.com/ButterCMS/buttercms-java/blob/master/LICENSE</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
