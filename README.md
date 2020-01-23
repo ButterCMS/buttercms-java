@@ -9,7 +9,30 @@ For a comprehensive list of examples, check out the [API documentation](https://
 
 ## Installation
 
-`TBD`
+### Maven
+
+**pom.xml**
+```
+<dependencies>
+...
+    <dependency>
+      <groupId>com.buttercms</groupId>
+      <artifactId>buttercmsclient</artifactId>
+      <version>1.6</version>
+    </dependency>
+...
+</dependencies>    
+```
+
+### Gradle
+
+**build.gradle**
+```
+dependencies {
+    implementation 'com.buttercms:buttercmsclient:1.6'
+}
+```
+
 
 ## Usage
 
