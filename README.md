@@ -379,6 +379,7 @@ Retrieving a single page returns a [PageResponse&lt;T&gt;](#pageresponse-class) 
 |seoTitle|String|
 |metaDescription|String|
 |featuredImage|String|
+|featuredImageAlt|String|
 |Status|[Status](#status-enum)|
 
 ### Status enum
