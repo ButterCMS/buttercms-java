@@ -26,6 +26,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -33,18 +34,20 @@ public class ButterCMSClient implements IButterCMSClient {
     private final ObjectMapper mapper;
     private final HttpClient client;
     private String authToken;
+    private final Integer preview;
 
     /**
      * Requests made with a missing or invalid token will get a 401 Unauthorized response. All requests must be made over HTTPS
      *
      * @param authToken ButterCMS auth_token
      */
-    public ButterCMSClient(final String authToken) {
+    public ButterCMSClient(final String authToken, final boolean preview) {
         this.authToken = authToken;
         this.mapper = new ObjectMapper();
         this.mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         this.mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         this.client = HttpClients.createDefault();
+        this.preview = preview ? 1 : 0;
     }
 
     /**
@@ -53,11 +56,12 @@ public class ButterCMSClient implements IButterCMSClient {
      * @param authToken ButterCMS auth_token
      * @param client    custom HttpClient
      */
-    public ButterCMSClient(final String authToken, HttpClient client) {
+    public ButterCMSClient(final String authToken, final boolean preview, HttpClient client) {
         this.authToken = authToken;
         this.mapper = new ObjectMapper();
         this.mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         this.mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        this.preview = preview ? 1 : 0;
         this.client = client;
     }
 
@@ -177,6 +181,7 @@ public class ButterCMSClient implements IButterCMSClient {
 
 
     private <T> T readGetRequest(String url, Map<String, String> queryParameters, Class<T> classType) {
+        queryParameters = addPreview(queryParameters);
         HttpGet httpGet = new HttpGet(buildURL(url, queryParameters));
         try {
             HttpResponse response = client.execute(httpGet);
@@ -192,6 +197,7 @@ public class ButterCMSClient implements IButterCMSClient {
     }
 
     private <T, G> T readGenericRequest(String url, Map<String, String> queryParameters, Class<T> classType, Class<G> genericClassType) {
+        queryParameters = addPreview(queryParameters);
         HttpGet httpGet = new HttpGet(buildURL(url, queryParameters));
         try {
             HttpResponse response = client.execute(httpGet);
@@ -232,6 +238,7 @@ public class ButterCMSClient implements IButterCMSClient {
     private String buildURL(final String path, final Map<String, String> queryParameters) {
         final URIBuilder uriBuilder = new URIBuilder(URI.create(ButterCMSAPIConfig.API_BASE + path));
         uriBuilder.addParameter("auth_token", this.authToken);
+        uriBuilder.addParameter("preview", this.preview.toString());
         if (queryParameters != null) {
             queryParameters.forEach(uriBuilder::addParameter);
         }
@@ -241,5 +248,16 @@ public class ButterCMSClient implements IButterCMSClient {
     private String getErrorMessage(HttpEntity httpEntity) throws IOException {
         JsonNode root = mapper.readTree(httpEntity.getContent());
         return root.get("detail").isNull() ? null : root.get("detail").asText();
+    }
+
+    private Map<String, String> addPreview(Map<String, String> queryParameters) {
+        if (queryParameters == null || queryParameters.isEmpty()) {
+            queryParameters = new HashMap<String, String>() {{
+                put("preview", preview.toString());
+            }};
+        } else {
+            queryParameters.put("preview", this.preview.toString());
+        }
+        return queryParameters;
     }
 }
