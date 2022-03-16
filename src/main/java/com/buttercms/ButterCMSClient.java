@@ -107,6 +107,10 @@ public class ButterCMSClient implements IButterCMSClient {
         return readGenericRequest(ButterCMSAPIConfig.PAGES + pageTypeSlug, queryParameters, PagesResponse.class, classType);
     }
 
+    @Override
+    public <T> PagesResponse<T> getSearchPages(final String pageTypeSlug, final Map<String, String> queryParameters, Class<T> classType) {
+        return readGenericRequest(ButterCMSAPIConfig.PAGE_SEARCH + pageTypeSlug, queryParameters, PagesResponse.class, classType);
+    }
 
     @Override
     public <T> CollectionResponse<T> getCollection(final String collectionSlug, final Map<String, String> queryParameters, Class<T> classType) {
@@ -142,6 +146,11 @@ public class ButterCMSClient implements IButterCMSClient {
     @Override
     public PostsResponse getPosts(final Map<String, String> queryParameters) {
         return readGetRequest(ButterCMSAPIConfig.POSTS, queryParameters, PostsResponse.class);
+    }
+
+    @Override
+    public PostsResponse getSearchPosts(final Map<String, String> queryParameters) {
+        return readGetRequest(ButterCMSAPIConfig.POST_SEARCH, queryParameters, PostsResponse.class);
     }
 
 

@@ -73,6 +73,17 @@ public interface IButterCMSClient {
      */
     <T> PagesResponse<T> getPages(String pageTypeSlug, Map<String, String> queryParameters, Class<T> classType);
 
+
+    /**
+     * Get a list of all pages for a given Page Type using its slug.
+     *
+     * @param pageTypeSlug    The slug of the type of pages you want to retrieve
+     * @param queryParameters query parameters as described in https://buttercms.com/docs/api/#search-pages
+     * @param classType       Object that Page should be deserialize in to
+     * @return A list of pages
+     */
+    <T> PagesResponse<T> getSearchPages(String pageTypeSlug, Map<String, String> queryParameters, Class<T> classType);
+
     /**
      * Get your Blog Post
      *
@@ -89,6 +100,16 @@ public interface IButterCMSClient {
      * @return a list of posts
      */
     PostsResponse getPosts(Map<String, String> queryParameters);
+
+    /**
+     * Returns a list of published posts searched by the given 'query' search term.
+     * The posts are returned sorted by publish date, with the most recent posts appearing first.
+     * The endpoint supports pagination and filtering.
+     *
+     * @param queryParameters query parameters as described in https://buttercms.com/docs/api/?shell#search-posts
+     * @return a list of posts
+     */
+    PostsResponse getSearchPosts(Map<String, String> queryParameters);
 
     /**
      * Retrieves the details of a tag
