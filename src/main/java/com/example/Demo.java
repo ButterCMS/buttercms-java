@@ -29,7 +29,7 @@ public class Demo {
     }
 
     public static void main(String[] args) {
-        ButterCMSClient client = new ButterCMSClient("your_api_token");
+        ButterCMSClient client = new ButterCMSClient("your_api_token", false);
         Demo demo = new Demo(client);
         try {
             demo.printCollection();

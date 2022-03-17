@@ -36,13 +36,15 @@ dependencies {
 
 ## Usage
 
-To get started with the Butter API, instantiate the ButterCMSClient with the API key found in the [Butter Admin Settings](https://buttercms.com/settings/). An optional timeout parameter can be passed as a [TimeSpan](https://msdn.microsoft.com/en-us/library/system.timespan%28v=vs.110%29.aspx); the default is 10 seconds.
+To get started with the Butter API, instantiate the ButterCMSClient with the API key found in the [Butter Admin Settings](https://buttercms.com/settings/) 
+and a boolean to specify whether preview mode is enabled. Preview mode enabled will return items saved as drafts.
+An optional timeout parameter can be passed as a [TimeSpan](https://msdn.microsoft.com/en-us/library/system.timespan%28v=vs.110%29.aspx); the default is 10 seconds.
 
 ```java
 import com.buttercms.IButterCMSClient;
 import com.buttercms.ButterCMSClient;
 ...
-IButterCMSClient client = new ButterCMSClient("your_api_token");
+IButterCMSClient client = new ButterCMSClient("your_api_token", isPreviewEnabled);
 ```
 
 If the application will be making many Butter API calls, it is recommended to store and re-use the client object.
@@ -57,7 +59,7 @@ HttpClient you_http_client = HttpClients.custom()
                                .addInterceptorFirst(you_interceptor)
                                .setDefaultHeaders(you_headers)
                                .build()
-IButterCMSClient client = new ButterCMSClient("your_api_token", you_http_client);
+IButterCMSClient client = new ButterCMSClient("your_api_token", isPreviewEnabled, you_http_client);
 ```
 
 ## Sections
@@ -302,7 +304,6 @@ Listing collection items returns a [CollectionResponse&lt;T&gt;](#collectionresp
 
 |Query Parameter|Description|
 | ---|---|
-|test (optional)| Set to 1 to enable Preview mode for viewing draft content.|
 | fields.key (optional) | Optional param. Filter the result set by the field and value.|
 | order (optional)| Order the result set by this field. Defaults to Ascending. Preprend ’-’ to sort Descending. i.e. order=-date_published|
 | page (optional)| Used for Paginating through result set.|
@@ -334,7 +335,6 @@ Listing Pages returns a [PagesResponse&lt;T&gt;](#pagesresponse-class) object. T
 
 |Query Parameter|Description|
 | ---|---|
-|preview (optional)| Set to 1 to return the latest draft version of a page.|
 | fields.key (optional) | Optional param. Filter the result set by the field and value.|
 | order (optional)| Order the result set by this field. Defaults to Ascending. Preprend ’-’ to sort Descending. i.e. order=-date_published|
 | page (optional)| Used for Paginating through result set.|
@@ -365,14 +365,13 @@ Retrieving a single page returns a [PageResponse&lt;T&gt;](#pageresponse-class) 
 
 |Query Parameter|Description|
 | ---|---|
-|preview (optional)| Set to 1 to return the latest draft version of a page.|
 |locale (optional)| Set to the api slug of your configured locale (i.e. en or fr)|
 
 #### Examples
 
 ```java
    PageResponse<RecipePage> recipe = client.getPage("recipe", "recipe-page-11", new HashMap<String, String>() {{
-            put("preview", "1");
+            put("locale", "en");
     }}, RecipePage.class);
 ```
 
