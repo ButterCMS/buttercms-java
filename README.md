@@ -91,7 +91,6 @@ Listing posts returns a [PostsResponse](#postsresponse-class) object. This objec
 | exclude_body(optional) | false | When true, does not return the full post body. Useful for keeping response size down when showing a list of blog posts. |
 |author_slug(optional) | |Filter posts by an author’s slug.|
 |category_slug(optional) | | Filter posts by a category’s slug.
-| query |  | Search query |
 
 #### Examples
 
@@ -119,6 +118,33 @@ Retrieving a single Post will return a PostResponse object. This object consists
 PostResponse controversialPost = butterClient.getPost("tabs-vs-spaces-throwdown");
 ```
 
+### Searching posts
+
+Searching posts will return a PostsResponseObject [PostsResponse](#postsresponse-class) object. This object consists of a [PaginationMeta](#paginationmeta-class) object and List&lt;[Post](#post-class)&gt;
+
+#### getPostsSearch() parameters
+
+| Parameter|Description|
+| ---|---|
+| queryParams  | Map of additional Query Parameters|
+
+#### getPostsSearch() Query Parameters
+
+| Query Parameter|Default|Description|
+| ---|---|---|
+| query |   | Search query |
+| page(optional) | 1 | Used to paginate through older posts. |
+| page_size(optional) | 10 |  Used to set the number of blog posts shown per page. 
+
+#### Example
+
+```
+Map<String,String> queryParams = new HashMap<String,String>(){{
+add("query", "search query");
+...
+}}
+PostsResponse posts = butterClient.getPostSearch(queryParams);
+```
 
 ## Authors
 
@@ -348,6 +374,41 @@ Retrieving a single page returns a [PageResponse&lt;T&gt;](#pageresponse-class) 
    PageResponse<RecipePage> recipe = client.getPage("recipe", "recipe-page-11", new HashMap<String, String>() {{
             put("preview", "1");
     }}, RecipePage.class);
+```
+
+### Search Pages
+
+Listing Pages returns a [PagesResponse&lt;T&gt;](#pagesresponse-class) object. This object consists of a [PaginationMeta](#pagination-meta) object and List&lt;T&gt;
+
+#### getPageSearch() parameters
+
+| Parameter|Description|
+| ---|---|
+| pageTypeSlug | The slug of the type of pages you want to retrieve |
+| queryParams | Map of additional Query Parameters|
+| classType | Class that Page will be deserialized in to|
+
+#### getPageSearch() query parameters
+
+|Query Parameter|Description|
+| ---|---|
+| query | Search query |
+|preview (optional)| Set to 1 to return the latest draft version of a page.|
+| fields.key (optional) | Optional param. Filter the result set by the field and value.|
+| order (optional)| Order the result set by this field. Defaults to Ascending. Preprend ’-’ to sort Descending. i.e. order=-date_published|
+| page (optional)| Used for Paginating through result set.|
+| page_size (optional)| Used for Paginating. Defines the number of results returned.|
+| locale (optional)| Set to the api slug of your configured locale (i.e. en or fr)|
+| levels (optional)| Defaults to 2. Defines the levels of relationships to serialize.|
+
+#### Examples
+
+```
+Map<String,String> queryParams = new HashMap<String,String>(){{
+add("query", "search query");
+...
+}}
+PagesResponse posts = butterClient.getPageSearch(queryParams);
 ```
 
 ##### Page Type Definition in the Butter Admin
