@@ -24,6 +24,7 @@ public class Post {
     private String title;
     private String url;
     private String featuredImage;
+    private String featuredImageAlt;
 
     public Author getAuthor() {
         return author;
@@ -129,13 +130,15 @@ public class Post {
         this.url = url;
     }
 
-    public String getFeaturedImage() {
-        return featuredImage;
-    }
+    public String getFeaturedImage() { return featuredImage; }
 
     public void setFeaturedImage(String featuredImage) {
         this.featuredImage = featuredImage;
     }
+
+    public String getFeaturedImageAlt() { return featuredImageAlt; }
+
+    public void setFeaturedImageAlt(String featuredImageAlt) { this.featuredImageAlt = featuredImageAlt; }
 
     @Override
     public boolean equals(Object o) {
@@ -154,13 +157,14 @@ public class Post {
                 Objects.equals(summary, post.summary) &&
                 Objects.equals(tags, post.tags) &&
                 Objects.equals(title, post.title) &&
-                Objects.equals(url, post.url)&&
-                Objects.equals(featuredImage, post.featuredImage);
+                Objects.equals(url, post.url) &&
+                Objects.equals(featuredImage, post.featuredImage) &&
+                Objects.equals(featuredImageAlt, post.featuredImageAlt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(author, body, categories, created, metaDescription, published, seoTitle, slug, status, summary, tags, title, url,featuredImage);
+        return Objects.hash(author, body, categories, created, metaDescription, published, seoTitle, slug, status, summary, tags, title, url, featuredImage, featuredImageAlt);
     }
 
     @Override
@@ -175,6 +179,7 @@ public class Post {
                 .add("title='" + title + "'")
                 .add("url='" + url + "'")
                 .add("featuredImage='" + featuredImage + "'")
+                .add("featuredImageAlt='" + featuredImageAlt + "'")
                 .toString();
     }
 

@@ -439,6 +439,7 @@ PagesResponse posts = butterClient.getPageSearch(queryParams);
 |seoTitle|String|
 |metaDescription|String|
 |featuredImage|String|
+|featuredImageAlt|String|
 |Status|[Status](#status-enum)|
 
 ### Status enum
