@@ -132,7 +132,7 @@ public class ButterCMSClient implements IButterCMSClient {
             response.setData(collection);
             return response;
         } catch (IOException e) {
-            throw new ButterCMSResponseException("Unexpected response deserialization error");
+            throw new ButterCMSResponseException("Unexpected response deserialization error", e);
         } finally {
             httpGet.releaseConnection();
         }
@@ -199,7 +199,7 @@ public class ButterCMSClient implements IButterCMSClient {
             }
             return mapper.readValue(response.getEntity().getContent(), classType);
         } catch (IOException e) {
-            throw new ButterCMSResponseException("Unexpected response deserialization error");
+            throw new ButterCMSResponseException("Unexpected response deserialization error", e);
         } finally {
             httpGet.releaseConnection();
         }
@@ -216,7 +216,7 @@ public class ButterCMSClient implements IButterCMSClient {
             return mapper.readValue(response.getEntity().getContent(),
                     mapper.getTypeFactory().constructParametricType(classType, genericClassType));
         } catch (IOException e) {
-            throw new ButterCMSResponseException("Unexpected response deserialization error");
+            throw new ButterCMSResponseException("Unexpected response deserialization error", e);
         } finally {
             httpGet.releaseConnection();
         }
@@ -238,7 +238,7 @@ public class ButterCMSClient implements IButterCMSClient {
             );
             return doc;
         } catch (SAXException | ParserConfigurationException | IOException e) {
-            throw new ButterCMSResponseException("Unexpected response deserialization error");
+            throw new ButterCMSResponseException("Unexpected response deserialization error", e);
         } finally {
             httpGet.releaseConnection();
         }
