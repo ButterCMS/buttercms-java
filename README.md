@@ -69,6 +69,7 @@ IButterCMSClient client = new ButterCMSClient("your_api_token", isPreviewEnabled
 * [Categories](#categories)
 * [Feeds](#feeds)
 * [Collections](#collections)
+* [Tags](#tags)
 * [Pages](#pages)
 * [Class Definitions](#class-definitions)
 * [Exceptions](#exceptions)
@@ -253,9 +254,62 @@ Map<String,String> queryParams = new HashMap<String,String>(){{
 CategoryResponse getCategories = butterClient.getCategory("java",queryParams);
 ```
 
+## Tags
+
+### List Tags
+
+Listing Tags returns a [TagsResponse](#tagsresponse-class) object. This object consists of a List&lt;[Tag](#Tag-class)&gt;
+
+#### getTags() Parameters
+| Parameter|Description|
+| ---|---|
+| queryParams | Map of additional Query Parameters|
+
+#### getTags() Parameters
+
+| Query Parameter|Description|
+| ---|---|
+| include |If value is `recent_posts`,  will return recent posts along with tags|
+
+#### Examples
+
+```java
+Map<String,String> queryParams = new HashMap<String,String>(){{
+    add("include","recent_posts");
+    ...
+}}
+TagsResponse getTags = butterClient.getTags(queryParams);
+```
+
+### Retrieve a Single Tag
+
+Retrieving an author returns an [TagResponse](#tagresponse-class) object. This object consists of single [Tag](#tag-class) if found
+
+#### getTag() Parameters
+
+| Parameter|Description|
+| ---|---|
+|slug|The slug of the tag to be retrieved.|
+| queryParams | Map of additional Query Parameters|
+
+
+| Parameter|Description|
+| ---|---|
+| include |If value is `recent_posts`,  will return recent posts along with tag|
+
+#### Examples
+
+```java
+Map<String,String> queryParams = new HashMap<String,String>(){{
+    add("include","recent_posts");
+    ...
+}}
+TagResponse getTag = butterClient.getTag("java",queryParams);
+```
+
 ## Feeds
 
-Each of the feeds methods returns an [Document](https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Document.html).
+Each of the feeds methods returns a [Document](https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Document.html).
 
 
 ### RSS Feed
@@ -432,6 +486,7 @@ PagesResponse posts = butterClient.getPageSearch(queryParams);
 |published|Date|
 |Author|[Author](#author-class)|
 |Categories|List&lt;[Category](#category-class)&gt;|
+|Tags|List&lt;[Tag](#tag-class)&gt;|
 |slug|String|
 |title|String|
 |body|String|
@@ -514,6 +569,26 @@ PagesResponse posts = butterClient.getPageSearch(queryParams);
 |data| [Category](#author-class)|
 
 ### Category Class
+
+| Property | Type|
+|----|---|
+|name| string|
+|slug| string|
+|recentPosts| IEnumerable&lt;[Post](#post-class)&gt;|
+
+### TagsResponse class
+| Property | Type|
+|----|---|
+|data| List&lt;[Tag](#tag-class)&gt;|
+
+
+
+### TagResponse class
+| Property | Type|
+|----|---|
+|data| [Tag](#tag-class)|
+
+### Tag Class
 
 | Property | Type|
 |----|---|
