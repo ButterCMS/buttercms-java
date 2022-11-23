@@ -99,7 +99,7 @@ Listing posts returns a [PostsResponse](#postsresponse-class) object. This objec
 
 ```java
 Map<String,String> queryParams = new HashMap<String,String>(){{
-    add("exclude_body","true");
+    put("exclude_body","true");
     ...
 }}
 PostsResponse posts = butterClient.getPosts(queryParams);
@@ -143,7 +143,7 @@ Searching posts will return a PostsResponseObject [PostsResponse](#postsresponse
 
 ```
 Map<String,String> queryParams = new HashMap<String,String>(){{
-add("query", "search query");
+put("query", "search query");
 ...
 }}
 PostsResponse posts = butterClient.getPostSearch(queryParams);
@@ -169,7 +169,7 @@ Listing posts returns a [AuthorsResponse](#authorsresponse-class) object. This o
 
 ```java
 Map<String,String> queryParams = new HashMap<String,String>(){{
-    add("include","recent_posts");
+    put("include","recent_posts");
     ...
 }}
 AuthorsResponse authors = butterClient.getAuthors(queryParams);
@@ -195,7 +195,7 @@ Retrieving an author returns an [AuthorResponse](#authorresponse-class) object. 
 
 ```java
 Map<String,String> queryParams = new HashMap<String,String>(){{
-    add("include","recent_posts");
+    put("include","recent_posts");
     ...
 }}
 AuthorResponse authors = butterClient.getAuthor("john",queryParams);
@@ -222,7 +222,7 @@ Listing Categories returns a [CategoriesResponse](#categoriesresponse-class) obj
 
 ```java
 Map<String,String> queryParams = new HashMap<String,String>(){{
-    add("include","recent_posts");
+    put("include","recent_posts");
     ...
 }}
 CategoriesResponse getCategories = butterClient.getCategories(queryParams);
@@ -248,7 +248,7 @@ Retrieving an author returns an [CategoryResponse](#categoryresponse-class) obje
 
 ```java
 Map<String,String> queryParams = new HashMap<String,String>(){{
-    add("include","recent_posts");
+    put("include","recent_posts");
     ...
 }}
 CategoryResponse getCategories = butterClient.getCategory("java",queryParams);
@@ -275,7 +275,7 @@ Listing Tags returns a [TagsResponse](#tagsresponse-class) object. This object c
 
 ```java
 Map<String,String> queryParams = new HashMap<String,String>(){{
-    add("include","recent_posts");
+    put("include","recent_posts");
     ...
 }}
 TagsResponse getTags = butterClient.getTags(queryParams);
@@ -301,7 +301,7 @@ Retrieving an author returns an [TagResponse](#tagresponse-class) object. This o
 
 ```java
 Map<String,String> queryParams = new HashMap<String,String>(){{
-    add("include","recent_posts");
+    put("include","recent_posts");
     ...
 }}
 TagResponse getTag = butterClient.getTag("java",queryParams);
@@ -458,7 +458,7 @@ Listing Pages returns a [PagesResponse&lt;T&gt;](#pagesresponse-class) object. T
 
 ```
 Map<String,String> queryParams = new HashMap<String,String>(){{
-add("query", "search query");
+put("query", "search query");
 ...
 }}
 PagesResponse posts = butterClient.getPageSearch(queryParams);
