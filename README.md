@@ -125,13 +125,13 @@ PostResponse controversialPost = butterClient.getPost("tabs-vs-spaces-throwdown"
 
 Searching posts will return a PostsResponseObject [PostsResponse](#postsresponse-class) object. This object consists of a [PaginationMeta](#paginationmeta-class) object and List&lt;[Post](#post-class)&gt;
 
-#### getPostsSearch() parameters
+#### getSearchPosts() parameters
 
 | Parameter|Description|
 | ---|---|
 | queryParams  | Map of additional Query Parameters|
 
-#### getPostsSearch() Query Parameters
+#### getSearchPosts() Query Parameters
 
 | Query Parameter|Default|Description|
 | ---|---|---|
@@ -146,7 +146,7 @@ Map<String,String> queryParams = new HashMap<String,String>(){{
 put("query", "search query");
 ...
 }}
-PostsResponse posts = butterClient.getPostSearch(queryParams);
+PostsResponse posts = butterClient.getSearchPosts(queryParams);
 ```
 
 ## Authors
@@ -433,7 +433,7 @@ Retrieving a single page returns a [PageResponse&lt;T&gt;](#pageresponse-class) 
 
 Listing Pages returns a [PagesResponse&lt;T&gt;](#pagesresponse-class) object. This object consists of a [PaginationMeta](#pagination-meta) object and List&lt;T&gt;
 
-#### getPageSearch() parameters
+#### getSearchPages() parameters
 
 | Parameter|Description|
 | ---|---|
@@ -441,7 +441,7 @@ Listing Pages returns a [PagesResponse&lt;T&gt;](#pagesresponse-class) object. T
 | queryParams | Map of additional Query Parameters|
 | classType | Class that Page will be deserialized in to|
 
-#### getPageSearch() query parameters
+#### getSearchPages() query parameters
 
 |Query Parameter|Description|
 | ---|---|
@@ -461,7 +461,7 @@ Map<String,String> queryParams = new HashMap<String,String>(){{
 put("query", "search query");
 ...
 }}
-PagesResponse posts = butterClient.getPageSearch(queryParams);
+PagesResponse posts = butterClient.getSearchPages(queryParams);
 ```
 
 ##### Page Type Definition in the Butter Admin
