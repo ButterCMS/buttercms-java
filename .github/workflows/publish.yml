@@ -26,7 +26,7 @@ jobs:
         distribution: 'adopt'
         cache: 'maven'
         cache-dependency-path: ./pom.xml
-        server-id: central  # This id should match with the id in your pom.xml or settings.xml
+        server-id: ossrh  # This id should match with the id in your pom.xml or settings.xml
         server-username: ${{ secrets.OSSRH_USER_TOKEN }}
         server-password: ${{ secrets.OSSRH_PWD_TOKEN }}
         gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
