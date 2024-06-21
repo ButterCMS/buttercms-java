@@ -23,5 +23,6 @@ jobs:
         cache: 'maven'
         cache-dependency-path: ./pom.xml
 
-    - name: Run tests
-      run: java tests/HelloWorldApp.java
+    - name: Install dependencies, Build and run Test with Maven
+      run: |
+        mvn -B clean verify
