@@ -1,4 +1,4 @@
-name: Python Tests
+name: Java Tests
 
 on: 
   workflow_call:
