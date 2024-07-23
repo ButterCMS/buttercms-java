@@ -31,6 +31,9 @@ jobs:
         server-password: ${{ secrets.OSSRH_PWD_TOKEN }}
         gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
         gpg-passphrase: ${{ secrets.GPG_PWD }}
+    
+    - name: Build with Maven Wrapper
+      run: ./mvnw clean install
 
-    - name: Publish to Apache Maven Central
-      run: mvn deploy -P release # Using the profile `release` for using the necessary dependencies
+    - name: Deploy to Apache Maven
+      run: ./mvnw deploy -P release -Dgpg.skip=false # Using the profile `release` for using the necessary dependencies
