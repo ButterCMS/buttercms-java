@@ -5,7 +5,9 @@
 
     <groupId>com.buttercms</groupId>
     <artifactId>buttercmsclient</artifactId>
-    <version>1.12-SNAPSHOT</version>
+    <!-- {x-release-please-start-version} -->
+    <version>1.11.0</version>
+    <!-- x-release-please-end -->
 
     <name>buttercmsclient</name>
     <url>https://github.com/ButterCMS/buttercms-java</url>
