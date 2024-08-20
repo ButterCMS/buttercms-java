@@ -1,0 +1,39 @@
+# This workflow will publish a package to the Apache Maven Central registry
+
+name: Build & Publish
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  test:
+    if: contains(github.event.head_commit.message, 'chore(release)')
+    uses: './.github/workflows/test.yml'
+
+  build-and-deploy:
+    if: contains(github.event.head_commit.message, 'chore(release)')
+    runs-on: ubuntu-22.04
+    needs: test
+    steps:  
+    - name: Checkout code
+      uses: actions/checkout@v4.1.4
+    
+    - name: Set up JDK & Java
+      uses: actions/setup-java@v4.2.1
+      with:
+        java-version: '8'
+        distribution: 'adopt'
+        cache: 'maven'
+        cache-dependency-path: ./pom.xml
+        server-id: ossrh  # This id should match with the id in your pom.xml or settings.xml
+        server-username: ${{ secrets.OSSRH_USERNAME }}
+        server-password: ${{ secrets.OSSRH_TOKEN }}
+        gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+        gpg-passphrase: ${{ secrets.GPG_PWD }}
+    
+    - name: Build with Maven Wrapper
+      run: ./mvnw clean install
+
+    - name: Deploy to Apache Maven
+      run: ./mvnw deploy -P release -Dgpg.skip=false # Using the profile `release` for using the necessary dependencies

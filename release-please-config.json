@@ -1,0 +1,14 @@
+{
+    "last-release-sha": "f21be7fe4c0ca77de4168ef6ea476322db83e18f",
+    "packages": {
+        ".": {
+            "release-type": "simple",
+            "pull-request-title-pattern": "chore(release): ${version}",
+            "pull-request-header": ":robot: Merge this PR to release a new version",
+            "extra-files": [
+                "README.md",
+                "pom.xml"
+            ]
+        }
+    }
+}
