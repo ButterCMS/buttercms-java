@@ -7,7 +7,7 @@
     <artifactId>buttercmsclient</artifactId>
     <!-- {x-release-please-start-version} -->
     <version>1.12.0</version>
-    <!-- x-release-please-end -->
+    <!-- {x-release-please-end} -->
 
     <name>buttercmsclient</name>
     <url>https://github.com/ButterCMS/buttercms-java</url>

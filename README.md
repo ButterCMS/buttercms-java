@@ -11,8 +11,9 @@ For a comprehensive list of examples, check out the [API documentation](https://
 
 ### Maven
 
+<!-- {x-release-please-start-version} -->
 **pom.xml**
-```
+```xml
 <dependencies>
 ...
     <dependency>
@@ -23,15 +24,18 @@ For a comprehensive list of examples, check out the [API documentation](https://
 ...
 </dependencies>    
 ```
+<!-- {x-release-please-end} -->
 
 ### Gradle
 
+<!-- {x-release-please-start-version} -->
 **build.gradle**
 ```
 dependencies {
     implementation 'com.buttercms:buttercmsclient:1.12.0'
 }
 ```
+<!-- {x-release-please-end} -->
 
 
 ## Usage
