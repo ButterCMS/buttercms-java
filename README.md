@@ -18,7 +18,7 @@ For a comprehensive list of examples, check out the [API documentation](https://
     <dependency>
       <groupId>com.buttercms</groupId>
       <artifactId>buttercmsclient</artifactId>
-      <version>1.6</version>
+      <version>1.12.0</version>
     </dependency>
 ...
 </dependencies>    
@@ -29,7 +29,7 @@ For a comprehensive list of examples, check out the [API documentation](https://
 **build.gradle**
 ```
 dependencies {
-    implementation 'com.buttercms:buttercmsclient:1.6'
+    implementation 'com.buttercms:buttercmsclient:1.12.0'
 }
 ```
 
