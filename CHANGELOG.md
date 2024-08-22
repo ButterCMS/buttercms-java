@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.12.1](https://github.com/ButterCMS/buttercms-java/compare/v1.12.0...v1.12.1) (2024-08-22)
+
+
+### Bug Fixes
+
+* replace maven-deploy-plugin with nexus-staging-maven-plugin ([907a518](https://github.com/ButterCMS/buttercms-java/commit/907a5182f34c78460bfcf4251d67973e4b91c2f4))
+
 ## [1.12.0](https://github.com/ButterCMS/buttercms-java/compare/v1.11.0...v1.12.0) (2024-08-21)
 
 
