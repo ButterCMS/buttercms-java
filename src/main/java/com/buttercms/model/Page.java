@@ -1,7 +1,9 @@
 package com.buttercms.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Date;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -10,6 +12,8 @@ public class Page<T> {
     private String slug;
     private String pageType;
     private T fields;
+    private Status status;
+    private Date scheduled;
 
     public String getSlug() {
         return slug;
@@ -35,6 +39,22 @@ public class Page<T> {
         this.fields = fields;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Date getScheduled() {
+        return scheduled;
+    }
+
+    public void setScheduled(Date scheduled) {
+        this.scheduled = scheduled;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -56,4 +76,14 @@ public class Page<T> {
                 .add("fields=" + fields)
                 .toString();
     }
+
+    public enum Status {
+        @JsonProperty("draft")
+        DRAFT,
+        @JsonProperty("published")
+        PUBLISHED,
+        @JsonProperty("scheduled")
+        SCHEDULED
+    }
 }
+

@@ -488,6 +488,7 @@ PagesResponse posts = butterClient.getSearchPages(queryParams);
 |url|String|
 |created|Date|
 |published|Date|
+|scheduled|Date|
 |Author|[Author](#author-class)|
 |Categories|List&lt;[Category](#category-class)&gt;|
 |Tags|List&lt;[Tag](#tag-class)&gt;|
@@ -507,6 +508,7 @@ PagesResponse posts = butterClient.getSearchPages(queryParams);
 |---|---|
 |Draft|1|
 |Published|2|
+|Scheduled|3|
 
 ### PostResponse Class
 
@@ -638,10 +640,14 @@ PagesResponse posts = butterClient.getSearchPages(queryParams);
 | Property | Type|
 |----|---|
 |slug| string|
+|pageType|string|
 |fields|T|
+|status|[Status](#status-enum)|
+|scheduled|Date|
 
 ## Exceptions
 
 ### ButterCMSResponseException
 
 General RunTime exception that wraps API error responses 
+

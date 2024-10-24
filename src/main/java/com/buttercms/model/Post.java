@@ -16,6 +16,7 @@ public class Post {
     private Date created;
     private String metaDescription;
     private Date published;
+    private Date scheduled;
     private String seoTitle;
     private String slug;
     private Status status;
@@ -72,6 +73,14 @@ public class Post {
 
     public void setPublished(Date published) {
         this.published = published;
+    }
+
+    public Date getScheduled() {
+        return scheduled;
+    }
+
+    public void setScheduled(Date scheduled) {
+        this.scheduled = scheduled;
     }
 
     public String getSeoTitle() {
@@ -151,6 +160,7 @@ public class Post {
                 Objects.equals(created, post.created) &&
                 Objects.equals(metaDescription, post.metaDescription) &&
                 Objects.equals(published, post.published) &&
+                Objects.equals(scheduled, post.scheduled) &&
                 Objects.equals(seoTitle, post.seoTitle) &&
                 Objects.equals(slug, post.slug) &&
                 status == post.status &&
@@ -164,7 +174,7 @@ public class Post {
 
     @Override
     public int hashCode() {
-        return Objects.hash(author, body, categories, created, metaDescription, published, seoTitle, slug, status, summary, tags, title, url, featuredImage, featuredImageAlt);
+        return Objects.hash(author, body, categories, created, metaDescription, published, scheduled, seoTitle, slug, status, summary, tags, title, url, featuredImage, featuredImageAlt);
     }
 
     @Override
@@ -188,6 +198,10 @@ public class Post {
         DRAFT,
 
         @JsonProperty("published")
-        PUBLISHED
+        PUBLISHED,
+
+        @JsonProperty("scheduled")
+        SCHEDULED
     }
 }
+
