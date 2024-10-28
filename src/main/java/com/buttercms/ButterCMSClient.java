@@ -245,7 +245,15 @@ public class ButterCMSClient implements IButterCMSClient {
     }
 
     private String buildURL(final String path, final Map<String, String> queryParameters) {
-        final URIBuilder uriBuilder = new URIBuilder(URI.create(ButterCMSAPIConfig.API_BASE + path));
+        String baseUrlFromEnv = System.getenv("API_BASE_URL");
+        String baseUrl;
+        if (baseUrlFromEnv != null) {
+            baseUrl = baseUrlFromEnv;
+        } else {
+            baseUrl = ButterCMSAPIConfig.API_BASE_DEFAULT;
+        }
+
+        final URIBuilder uriBuilder = new URIBuilder(URI.create(baseUrl + path));
         uriBuilder.addParameter("auth_token", this.authToken);
         uriBuilder.addParameter("preview", this.preview.toString());
         if (queryParameters != null) {
