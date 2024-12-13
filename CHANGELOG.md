@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.13.0](https://github.com/ButterCMS/buttercms-java/compare/v1.12.1...v1.13.0) (2024-12-13)
+
+
+### Features
+
+* add dockerfile demo package ([065033e](https://github.com/ButterCMS/buttercms-java/commit/065033e0603c8bb71a2fcc8329000f50d2c32cb4))
+* make dates optional ([00123f2](https://github.com/ButterCMS/buttercms-java/commit/00123f28861fd2d73a23225622745bd857ccebbf))
+* parametrize base url ([fd631c4](https://github.com/ButterCMS/buttercms-java/commit/fd631c4eabce7ebfb8c6cb4b234b292867425dac))
+* update Page and Post models ([82e9416](https://github.com/ButterCMS/buttercms-java/commit/82e94161fd8ccc7bf22ca8daf911348e8cf80a9c))
+
 ## [1.12.1](https://github.com/ButterCMS/buttercms-java/compare/v1.12.0...v1.12.1) (2024-08-22)
 
 
